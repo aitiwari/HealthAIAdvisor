@@ -24,7 +24,7 @@ with st.sidebar:
 if st.session_state["GROQ_API_KEY"]:            
     client = Groq(api_key=st.session_state["GROQ_API_KEY"])
 else :
-    client = Groq(api_key= st.secrets.get("GROQ_API_KEY", "sk-your-key"))
+    client = Groq(api_key=os.environ.get("GROQ_API_KEY", st.secrets.get("GROQ_API_KEY", "sk-your-key")))
 
 # Custom CSS
 st.markdown("""
