@@ -18,8 +18,13 @@ with st.sidebar:
     # API key input for Groq
     st.session_state["GROQ_API_KEY"] = st.text_input("GROQ API Key", type="password")
     st.sidebar.markdown("🔑 [Get Groq API Key](https://console.groq.com/keys)")
-                
-client = Groq(api_key=st.session_state["GROQ_API_KEY"])
+   
+   
+   # Initialize Groq client
+if st.session_state["GROQ_API_KEY"]:            
+    client = Groq(api_key=st.session_state["GROQ_API_KEY"])
+else :
+    client = Groq(api_key=os.environ.get("GROQ_API_KEY", st.secrets.get("GROQ_API_KEY", "sk-your-key")))
 
 # Custom CSS
 st.markdown("""

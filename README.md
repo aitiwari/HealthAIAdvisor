@@ -1,6 +1,19 @@
+---
+title: HealthAIAdvisor
+emoji: 🐠
+colorFrom: purple
+colorTo: yellow
+sdk: streamlit
+sdk_version: 1.43.2
+app_file: app.py
+pinned: false
+license: mit
+short_description: An AI-powered health and wellness assistant providing person
+---
+
 # HealthAI Advisor 🌿
 
-[![Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://your-app-url.streamlit.app/)
+[![Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://healthaiadvisor.streamlit.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 An AI-powered health and wellness assistant providing personalized diet plans, workout routines, yoga sequences, and real-time health coaching using Groq's lightning-fast LLMs.
