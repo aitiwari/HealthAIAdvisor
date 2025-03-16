@@ -3,6 +3,7 @@ import streamlit as st
 from groq import Groq
 import time
 import os
+import re
 
 
 
@@ -57,13 +58,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Helper Functions
-def get_groq_response(prompt, model="mixtral-8x7b-32768"):
+def get_groq_response(prompt, model="deepseek-r1-distill-qwen-32b"):
     try:
         response = client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}],
             model=model,
             temperature=0.3,
-            max_tokens=1024
         )
         return response.choices[0].message.content
     except Exception as e:
@@ -144,12 +144,29 @@ def main():
                         Include breakfast, lunch, dinner, and snacks with macros with attractive emogies and attractive format"""
                     response = get_groq_response(prompt)
                     st.subheader("🍽️ Your Personalized Meal Plan")
-                    st.markdown(f'<div class="recommendation-box">\n\n{response}</div>', unsafe_allow_html=True)
+                    # st.markdown(f'<div class="recommendation-box">\n\n{response}</div>', unsafe_allow_html=True)
+                    think_match = re.search(r'<think>(.*?)</think>', response, re.DOTALL)
+                    if think_match:
+                        think_text = think_match.group(1).strip()
+                        # Remove the <think>...</think> part from the original response
+                        response_without_think = re.sub(r'<think>.*?</think>', '', response, flags=re.DOTALL).strip()
+                    else:
+                        think_text = ""
+                        response_without_think = response
+
+                    # Print the think part using a Streamlit expander if it exists
+                    if think_text:
+                        with st.expander("Internal Thoughts"):
+                            st.write(think_text)
+
+                    # Print the remaining response using st.markdown
+                    st.markdown(f'<div class="recommendation-box">\n\n{response_without_think}</div>', unsafe_allow_html=True)
+
                     
 
     # Workout Generator
     elif page == "💪 Workout Generator":
-        st.header("💪 AI Fitness Coacht")
+        st.header("💪 AI Fitness Coach")
         st.divider()
         
         with st.form("workout_form"):
@@ -171,7 +188,24 @@ def main():
                         using {equipment}. Include warm-up, exercises with sets/reps, and cool-down with attractive emogies and attractive format"""
                     response = get_groq_response(prompt)
                     st.subheader("📝 Your Custom Workout Plan")
-                    st.markdown(f'<div class="recommendation-box">\n\n{response}</div>', unsafe_allow_html=True)
+                    # st.markdown(f'<div class="recommendation-box">\n\n{response}</div>', unsafe_allow_html=True)
+                    think_match = re.search(r'<think>(.*?)</think>', response, re.DOTALL)
+                    if think_match:
+                        think_text = think_match.group(1).strip()
+                        # Remove the <think>...</think> part from the original response
+                        response_without_think = re.sub(r'<think>.*?</think>', '', response, flags=re.DOTALL).strip()
+                    else:
+                        think_text = ""
+                        response_without_think = response
+
+                    # Print the think part using a Streamlit expander if it exists
+                    if think_text:
+                        with st.expander("Internal Thoughts"):
+                            st.write(think_text)
+
+                    # Print the remaining response using st.markdown
+                    st.markdown(f'<div class="recommendation-box">\n\n{response_without_think}</div>', unsafe_allow_html=True)
+
 
     # Yoga Advisor
     elif page == "🧘 Yoga Advisor":
@@ -197,7 +231,24 @@ def main():
                         and final relaxation with attractive emogies and attractive format"""
                     response = get_groq_response(prompt)
                     st.subheader("🌸 Your Yoga Sequence")
-                    st.markdown(f'<div class="recommendation-box">\n\n{response}</div>', unsafe_allow_html=True)
+                    # st.markdown(f'<div class="recommendation-box">\n\n{response}</div>', unsafe_allow_html=True)
+                    think_match = re.search(r'<think>(.*?)</think>', response, re.DOTALL)
+                    if think_match:
+                        think_text = think_match.group(1).strip()
+                        # Remove the <think>...</think> part from the original response
+                        response_without_think = re.sub(r'<think>.*?</think>', '', response, flags=re.DOTALL).strip()
+                    else:
+                        think_text = ""
+                        response_without_think = response
+
+                    # Print the think part using a Streamlit expander if it exists
+                    if think_text:
+                        with st.expander("Internal Thoughts"):
+                            st.write(think_text)
+
+                    # Print the remaining response using st.markdown
+                    st.markdown(f'<div class="recommendation-box">\n\n{response_without_think}</div>', unsafe_allow_html=True)
+
 
     # AI Coach
     elif page == "🤖 AI Coach":
@@ -220,8 +271,24 @@ def main():
             with st.chat_message("assistant"):
                 with st.spinner("Analyzing..."):
                     response = get_groq_response(prompt)
-                    st.markdown(response)
-                    st.session_state.messages.append({"role": "assistant", "content": response})
+                    # st.session_state.messages.append({"role": "assistant", "content": response})
+                    # Extract the internal "think" part from the response
+                    think_match = re.search(r'<think>(.*?)</think>', response, re.DOTALL)
+                    if think_match:
+                        think_text = think_match.group(1).strip()
+                        # Remove the <think>...</think> part from the response
+                        response_without_think = re.sub(r'<think>.*?</think>', '', response, flags=re.DOTALL).strip()
+                    else:
+                        think_text = ""
+                        response_without_think = response
+
+                    # Display the internal thoughts (if any) inside an expander
+                    if think_text:
+                        with st.expander("Internal Thoughts"):
+                            st.write(think_text)
+
+                    # Display the remaining response in the recommendation box
+                    st.markdown(f'<div class="recommendation-box">\n\n{response_without_think}</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
