@@ -79,7 +79,8 @@ def main():
 
     # Dashboard
     if page == "🏠 Dashboard":
-        st.markdown('<p class="header-text">HealthAI Dashboard</p>', unsafe_allow_html=True)
+        st.header("🏠 HealthAI Dashboard")
+        st.divider()
         
         with st.container():
             col1, col2 = st.columns(2)
@@ -119,7 +120,8 @@ def main():
 
     # Diet Planner
     elif page == "🍎 Diet Planner":
-        st.markdown('<p class="header-text">AI Nutritionist</p>', unsafe_allow_html=True)
+        st.header("🍎 AI Nutritionist")
+        st.divider()
         
         with st.form("diet_form"):
             col1, col2 = st.columns(2)
@@ -146,7 +148,8 @@ def main():
 
     # Workout Generator
     elif page == "💪 Workout Generator":
-        st.markdown('<p class="header-text">AI Fitness Coach</p>', unsafe_allow_html=True)
+        st.header("💪 AI Fitness Coacht")
+        st.divider()
         
         with st.form("workout_form"):
             col1, col2 = st.columns(2)
@@ -171,8 +174,8 @@ def main():
 
     # Yoga Advisor
     elif page == "🧘 Yoga Advisor":
-        st.markdown('<p class="header-text">AI Yoga Guide</p>', unsafe_allow_html=True)
-        
+        st.header("🧘 AI Yoga Guide")
+        st.divider()
         with st.form("yoga_form"):
             col1, col2 = st.columns(2)
             with col1:
@@ -198,6 +201,8 @@ def main():
     # AI Coach
     elif page == "🤖 AI Coach":
         st.markdown('<p class="header-text">AI Wellness Coach</p>', unsafe_allow_html=True)
+        st.header("🤖 AI Wellness Coach")
+        st.divider()
         
         if "messages" not in st.session_state:
             st.session_state.messages = []
