@@ -58,7 +58,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Helper Functions
-def get_groq_response(prompt, model="deepseek-r1-distill-qwen-32b"):
+def get_groq_response(prompt, model="llama-3.3-70b-versatile"):
     try:
         response = client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}],
